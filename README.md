@@ -74,7 +74,7 @@ Quick start options:
 - `npm i nextjs-material-dashboard`
 - Clone the repo: `git clone https://github.com/creativetimofficial/nextjs-material-dashboard.git`.
 - [Download from Github](https://github.com/creativetimofficial/nextjs-material-dashboard/archive/master.zip).
-- [Download from Creative Tim](https://www.creative-tim.com/product/nextjs-material-dashboard).
+- [Download from Onus](https://www.creative-tim.com/product/nextjs-material-dashboard).
 
 
 ## Documentation
@@ -301,12 +301,12 @@ If you have questions or need help integrating the product please [contact us](h
 
 ## Licensing
 
-- Copyright 2021 Creative Tim (https://www.creative-tim.com)
+- Copyright 2021 Onus (https://www.creative-tim.com)
 - Licensed under MIT (https://github.com/creativetimofficial/nextjs-material-dashboard/blob/master/LICENSE.md)
 
 ## Useful Links
 
-More products from Creative Tim: <https://www.creative-tim.com/products>
+More products from Onus: <https://www.creative-tim.com/products>
 
 Tutorials: <https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w>
 

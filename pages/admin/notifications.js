@@ -138,7 +138,7 @@ function Notifications() {
             target="_blank"
             href="https://www.creative-tim.com/?ref=njsmd-notifications-page"
           >
-            Creative Tim
+            Onus
           </a>
           . Please checkout the{" "}
           <a href="#pablo" target="_blank">

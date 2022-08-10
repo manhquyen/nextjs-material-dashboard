@@ -5,7 +5,7 @@
  =========================================================
 
  * Product Page: http://www.creative-tim.com/product/nextjs-material-dashboard
- * Copyright 2021 Creative Tim (http://www.creative-tim.com)
+ * Copyright 2021 Onus (http://www.creative-tim.com)
  * Licensed under MIT (https://github.com/creativetimofficial/nextjs-material-dashboard/blob/master/LICENSE.md)
 
  =========================================================

@@ -192,7 +192,7 @@ function UpgradeToPro() {
                         Current Version
                       </Button>
                     </td>
-                    <td className={classes.center}>
+                    {/* <td className={classes.center}>
                       <Button
                         round
                         color="danger"
@@ -200,7 +200,7 @@ function UpgradeToPro() {
                       >
                         Upgrade to Pro
                       </Button>
-                    </td>
+                    </td> */}
                   </tr>
                 </tbody>
               </table>

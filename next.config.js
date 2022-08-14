@@ -5,9 +5,15 @@ const withCSS = require("@zeit/next-css");
 const webpack = require("webpack");
 const path = require("path");
 
-module.exports = withPlugins([[withSass], [withImages], [withCSS]], {
+
+const nextConfig = {
   webpack(config, options) {
     config.resolve.modules.push(path.resolve("./"));
     return config;
   },
-});
+  images: {
+    domains: ['dhj9tilaog5bs.cloudfront.net']
+  }
+}
+
+module.exports = withPlugins([[withSass], [withImages], [withCSS]], nextConfig);

@@ -123,7 +123,7 @@ export default function Sidebar(props) {
           {image !== undefined ? (
             <div
               className={classes.background}
-              style={{ backgroundImage: "url(" + image + ")" }}
+              // style={{ backgroundImage: "url(" + image + ")" }}
             />
           ) : null}
         </Drawer>
@@ -144,7 +144,7 @@ export default function Sidebar(props) {
           {image !== undefined ? (
             <div
               className={classes.background}
-              style={{ backgroundImage: "url(" + image + ")" }}
+              // style={{ backgroundImage: "url(" + image + ")" }}
             />
           ) : null}
         </Drawer>

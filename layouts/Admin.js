@@ -101,15 +101,15 @@ export default function Admin({ children, ...rest }) {
         ) : (
           <div className={classes.map}>{children}</div>
         )}
-        {getRoute() ? <Footer /> : null}
-        <FixedPlugin
+        {/* {getRoute() ? <Footer /> : null} */}
+        {/* <FixedPlugin
           handleImageClick={handleImageClick}
           handleColorClick={handleColorClick}
           bgColor={color}
           bgImage={image}
           handleFixedClick={handleFixedClick}
           fixedClasses={fixedClasses}
-        />
+        /> */}
       </div>
     </div>
   );

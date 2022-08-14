@@ -66,7 +66,7 @@ export default function AdminNavbarLinks() {
           <Search />
         </Button>
       </div>
-      <Button
+      {/* <Button
         color={size.width > 959 ? "transparent" : "white"}
         justIcon={size.width > 959}
         simple={!(size.width > 959)}
@@ -77,7 +77,7 @@ export default function AdminNavbarLinks() {
         <Hidden mdUp implementation="css">
           <p className={classes.linkText}>Dashboard</p>
         </Hidden>
-      </Button>
+      </Button> */}
       <div className={classes.manager}>
         <Button
           color={size.width > 959 ? "transparent" : "white"}
@@ -156,7 +156,7 @@ export default function AdminNavbarLinks() {
           )}
         </Poppers>
       </div>
-      <div className={classes.manager}>
+      {/* <div className={classes.manager}>
         <Button
           color={size.width > 959 ? "transparent" : "white"}
           justIcon={size.width > 959}
@@ -219,7 +219,7 @@ export default function AdminNavbarLinks() {
             </Grow>
           )}
         </Poppers>
-      </div>
+      </div> */}
     </div>
   );
 }

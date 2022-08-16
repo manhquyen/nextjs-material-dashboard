@@ -32,15 +32,17 @@ const styles = ({ enableDetailMaster }) =>  ({
     },
     time: {
         marginLeft: '4px',
-        display: "inline-block"
+        display: "inline-block",
+        color: "#8492A7",
     },
     content: {
         padding: "12px 0px",
-        fontSize: "14px",
+        fontSize: "16px",
         fontWeight: '400',
+        color: "#8492A7",
     },
     title: {
-        fontSize: "16px",
+        fontSize: "18px",
         display: 'inline',
         marginLeft: "4px",
         fontWeight: '500',
@@ -60,6 +62,9 @@ const styles = ({ enableDetailMaster }) =>  ({
     },
     leverage: {
         marginLeft: '50px'
+    },
+    containerTitle: {
+        marginTop: '8px',
     }
 });
 
@@ -78,11 +83,14 @@ export default function ItemArticles(props) {
     Router.push(`/admin/master/${masterId}`)
   }
 
+  const preventDefault = (event) => event.preventDefault();
+
+
   return (
     <div>
       <ListItem button onClick={() => goDetail(dataArticles)}>
         <div className={classes.container}>
-          <div onClick={enableDetailMaster ? goToDetailMaster : () => { }} className={classes.header}>
+          <div onClick={enableDetailMaster ? goToDetailMaster : preventDefault} className={classes.header}>
             <Avatar alt="avatar" src={avatar} />
             <div>
               <div className={classes.name}>{name}</div>
@@ -92,7 +100,7 @@ export default function ItemArticles(props) {
               </div>
             </div>
           </div>
-          <div>
+          <div className={classes.containerTitle}>
             <span className={classes.type}>#{trans}</span>
             <span className={classes.title}>{title}</span>
           </div>

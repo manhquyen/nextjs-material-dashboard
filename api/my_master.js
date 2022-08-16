@@ -22,10 +22,20 @@ const getInfoMaster = ({ masterId }) => {
     return API_MY_MASTER.get(`/getUserInfo?user_id=${masterId}`)
 }
 
+const getListMaster = () => {
+    return API_MY_MASTER.get(`/getMasters`)
+}
+
+const getFollowerByMaster = ({ masterId }) => {
+    return API_MY_MASTER.get(`/getFollowerByMaster?master_id=${masterId}`)
+}
+
 export  {
     getArticles,
     getArticlesByMaster,
     getDetailArticles,
     setActiveArticle,
-    getInfoMaster
+    getInfoMaster,
+    getListMaster,
+    getFollowerByMaster,
 }

@@ -34,12 +34,16 @@ import PaginationRounded from "components/Pagination/PaginationRounded.js";
 import ListArticles from "components/ListArticles/ListArticles.js"
 import { useRouter } from "next/router";
 import config from "../../../api/config";
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TelegramIcon from '@material-ui/icons/Telegram';
+import Link from '@material-ui/core/Link';
 
 
 import { useState } from "react";
-import { getArticlesByMaster, getInfoMaster } from "../../../api/my_master";
+import { getArticlesByMaster, getFollowerByMaster, getInfoMaster } from "../../../api/my_master";
 import Image from "next/image";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Divider } from "@material-ui/core";
+import ImageCover from "../../../components/ImageCover/ImageCover";
 
 const styles = (theme) => ({
   root: {
@@ -57,6 +61,75 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "center",
   },
+  large: {
+    border: `solid 2px ${theme.palette.background.paper}`,
+    width: theme.spacing(14),
+    height: theme.spacing(14),
+  },
+  containerAvatar: {
+    padding: "0px 16px",
+    marginTop: "-60px",    
+  },
+  name: {
+    fontSize: "20px",
+    fontWeight: '500',
+  },
+  masterId: {
+    fontSize: "14px",
+    color: "#8492A7",
+    fontWeight: "400",
+  },
+  containerName: {
+    marginTop: '16px'
+  },
+  containerInfoSignal: {
+    padding: "16px",
+    display: 'flex',
+  },
+  containerNoSignal: {
+    height: '400px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '20px',
+    fontWeight: '400', 
+},
+containerContact: {
+    padding: "16px 16px 0px",
+    display: "flex",
+  },
+  containerLink: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  link: {
+    marginLeft: "6px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    maxWidth: "300px",
+    "-webkit-line-clamp": 1,
+    "line-clamp": 1,
+    "-webkit-box-orient": "vertical",
+  },
+  signalTitle: {
+    fontSize: '16px',
+    color: "#8492A7",
+    fontWeight: '400'
+  },
+  signal: {
+    fontSize: '20px',
+    fontWeight: '500',
+  },
+  titleIntro: {
+    fontSize: "16px",
+    fontWeight: '400',
+    color: "#8492A7",
+  },
+  intro: {
+    fontSize: "14px",
+    fontWeight: "500",
+  }
 });
 
 const ListArticlesByMaster = (props) => {
@@ -68,6 +141,7 @@ const ListArticlesByMaster = (props) => {
   const [listArticles, setListArticles] = useState([]);
   const [infoUser, setInfoUser] = useState(null);
   const [showPaging, setShowPaging] = useState(true);
+  const [followers, setFollowers] = useState(0)
   const pageSize = 20;
 
   console.log('id ', id)
@@ -82,7 +156,9 @@ const ListArticlesByMaster = (props) => {
   const getInitData = async () => {
     const promiseGetArticles =  getArticlesByMaster({ masterId: id, page: 0, pageSize});
     const promiseGetInfo =  getInfoMaster({ masterId: id })
-    const res = await Promise.all([promiseGetArticles, promiseGetInfo]);
+    const promiseFollowerByMaster = getFollowerByMaster({ masterId: id});
+
+    const res = await Promise.all([promiseGetArticles, promiseGetInfo, promiseFollowerByMaster]);
     if (res[0].status === 200) {
       console.log('res ', res.data);
       setListArticles(res[0].data)
@@ -94,6 +170,9 @@ const ListArticlesByMaster = (props) => {
         setInfoUser(res[1].data);
         console.log('res info master ', res[1].data);
     }
+    if (res[2].status === 200) {
+        setFollowers(res[2].data?.length)
+      }
   }
 
 
@@ -101,7 +180,7 @@ const ListArticlesByMaster = (props) => {
     const res = await getArticlesByMaster({ masterId: id, page: newPage, pageSize});
     if (res.status === 200) {
       console.log('res ', res.data);
-      setListArticles(res.data)
+      setListArticles(res?.data)
     }
   }
 
@@ -116,21 +195,90 @@ const ListArticlesByMaster = (props) => {
     <div className={classes.root}>
       <div className={classes.container}>
         {!!infoUser?.coverImage && (
-          <div style={{ width: "100%", height: "500px", position: "relative", borderTopLeftRadius: '8px', borderTopRightRadius: '8px', overflow: 'hidden' }}>
-            <Image
-              alt="cover image"
-              layout="fill"
-              src={`${config.baseUrlImage}${infoUser?.coverImage}`}
-            />
+          <div
+            style={{
+              width: "100%",
+              height: "500px",
+              position: "relative",
+              borderTopLeftRadius: "8px",
+              borderTopRightRadius: "8px",
+              overflow: "hidden",
+            }}
+          >
+            <ImageCover src={`${config.baseUrlImage}${infoUser?.coverImage}`} />
           </div>
         )}
-        <Avatar alt="avatar" sizes="large" src={`https://core.vndc.io/vndc_new/content/images/${infoUser?.imageUrl}?width=300&height=300`} />
-        <ListArticles
-          enableDetailMaster={false}
-          scrollableListRef={scrollableListRef}
-          data={listArticles}
-        />
-        {showPaging && (
+        <div className={classes.containerAvatar}>
+          <Avatar
+            alt="avatar"
+            className={classes.large}
+            src={`https://core.vndc.io/vndc_new/content/images/${infoUser?.imageUrl}?width=300&height=300`}
+          />
+          <div className={classes.containerName}>
+            <div className={classes.name}>{infoUser?.name}</div>
+            <div className={classes.masterId}>{infoUser?.id}</div>
+          </div>
+          <div className={classes.containerName}>
+            <div className={classes.titleIntro}>Giới thiệu</div>
+            <div className={classes.intro} style={{ marginTop: "16px" }}>
+              {infoUser?.introduction}
+            </div>
+          </div>
+        </div>
+        {!!infoUser?.facebook && !!infoUser?.telegram && (
+        <div className={classes.containerContact}>
+          {!!infoUser?.facebook && (
+            <div className={classes.containerLink}>
+              <FacebookIcon/>
+              <Link
+                className={classes.link}
+                href={infoUser?.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {infoUser?.facebook}
+              </Link>
+            </div>
+          )}
+          {!!infoUser?.telegram && (
+            <div className={classes.containerLink} style={{ maxWidth: '150px', marginLeft: '64px'}}>
+              <TelegramIcon />
+              <Link
+                className={classes.link}
+                href={infoUser?.telegram}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {infoUser?.telegram}
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
+        <div className={classes.containerInfoSignal}>
+          <div>
+            <div className={classes.signalTitle}>Tín hiệu</div>
+            <div className={classes.signal}>28</div>
+          </div>
+          <div style={{ marginLeft: '40px'}}>
+            <div className={classes.signalTitle}>Người theo dõi</div>
+            <div className={classes.signal}>{followers}</div>
+          </div>
+        </div>
+        <Divider />
+
+        {listArticles && listArticles?.length > 0 ? (
+          <ListArticles
+            enableDetailMaster={false}
+            scrollableListRef={scrollableListRef}
+            data={listArticles}
+          />
+        ) : (
+          <div className={classes.containerNoSignal}>
+            Master chưa có tín hiệu nào
+          </div>
+        )}
+        {listArticles && listArticles?.length > 0 && showPaging && (
           <div className={classes.paginationContainer}>
             <PaginationRounded
               page={page + 1}
